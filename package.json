@@ -1,0 +1,26 @@
+{
+    "name": "find-custom-globals",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "devDependencies": {
+        "@babel/core": "^7.5.4",
+        "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "@babel/plugin-proposal-private-methods": "^7.4.4",
+        "@babel/plugin-transform-runtime": "^7.5.0",
+        "@babel/preset-env": "^7.5.4",
+        "babel-loader": "^8.0.6",
+        "cross-env": "^5.2.0",
+        "node-static": "^0.7.11",
+        "webpack": "^4.35.3",
+        "webpack-cli": "^3.3.6",
+        "webpack-dev-server": "^3.7.2"
+    },
+    "scripts": {
+        "build": "rm -r dist/ & cross-env NODE_ENV=production webpack",
+        "dev": "rm -r dist/ & cross-env NODE_ENV=development webpack-dev-server"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
