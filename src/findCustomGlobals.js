@@ -49,15 +49,6 @@ class FindCustomGlobals {
         };
     }
 
-    // Валидация устанавливаемого индекса
-    _validateIndex = index => {
-        if (typeof index !== 'number') return false;
-        if (index < 0) index = 0;
-        if (index >= this.customGlobals.length) index = 0;
-
-        return index;
-    }
-
     // Устанавливает индекс счетчика для дальнейших вызовов showNextGlobal
     setNextGlobalCounter = index => {
         index = this._validateIndex(index);
@@ -103,8 +94,17 @@ class FindCustomGlobals {
         return result;
     };
 
+    // Валидация устанавливаемого индекса
+    _validateIndex = index => {
+        if (typeof index !== 'number') return false;
+        if (index < 0) index = 0;
+        if (index >= this.customGlobals.length) index = 0;
+
+        return index;
+    }
+
     // Собирает коллекцию только кастомных глобальных переменных
-    filterCustomGlobals = () => {
+    _filterCustomGlobals = () => {
         this.customGlobals = new Set();
 
         for (let prop in window) {
@@ -120,7 +120,7 @@ class FindCustomGlobals {
     };
 
     // Обработчик события изменения localStorage
-    storageHandler = event => {
+    _storageHandler = event => {
         // Если изменение по нужномы нам ключу
         if (event.key === this.storageKey) {
             try {
@@ -131,20 +131,20 @@ class FindCustomGlobals {
                 return false;
             } finally {
                 // Очистка от своих действий
-                window.removeEventListener("storage", this.storageHandler);
+                window.removeEventListener("storage", this._storageHandler);
                 localStorage.removeItem(this.storageKey);
                 this.iframe.remove();
             }
 
             // Получив коллекцию дефолтных переменных, надо по ней отфильтровать все свойства window
-            this.filterCustomGlobals();
+            this._filterCustomGlobals();
         }
     };
 
     // Добавление на страницу iframe, в адресе которого будет js-выражение, которое он выполнит
-    insertIframe = () => {
+    _insertIframe = () => {
         // Будем ждать пока айфрейм добавит в localStorage запись с дефолтными глобальными переменными
-        window.addEventListener("storage", this.storageHandler, false);
+        window.addEventListener("storage", this._storageHandler, false);
 
         this.iframe = document.createElement("iframe");
         this.iframe.width = "1";
@@ -162,7 +162,7 @@ class FindCustomGlobals {
         this.customGlobals = undefined;
         this.nextCounter = 0;
 
-        this.insertIframe();
+        this._insertIframe();
     };
 }
 
