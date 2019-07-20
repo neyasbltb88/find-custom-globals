@@ -36,6 +36,7 @@ var fcg = new FindCustomGlobals();
 
 ### .showNextGlobal()
 С каждым вызовом возвращает объект следующей глобальной переменной из массива, который возвращает метод `.showCustomGlobalsNames()` + индекс в этом массиве:
+
 ![Объект следующей глобальной переменной](./docs-img/3.PNG ".showNextGlobal()")
 
 ### .setNextGlobalCounter()
